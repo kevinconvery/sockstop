@@ -1,53 +1,41 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react'
 
-class List extends Component {
-  // Initialize the state
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: []
-    }
-  }
+const List = props => {
+  const [list, setList] = useState([]);
 
-  // Fetch the list on first mount
-  componentDidMount() {
-    this.getList();
-  }
+  useEffect(() => {
+    getList();
+  });
 
-  // Retrieves the list of items from the Express app
-  getList = () => {
+  const getList = () => {
     fetch('/api/getList')
     .then(res => res.json())
-    .then(list => this.setState({ list }))
+    .then(list => setList(list))
   }
-
-  render() {
-    const { list } = this.state;
-
-    return (
-      <div className="App">
-        <h1>List of Items</h1>
-        {/* Check to see if any items are found */}
-        {list.length ? (
-          <div>
-            {/* Render the list of items */}
-            {list.map((item) => {
-              return(
-                <div>
-                  {item}
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div>
-            <h2>No List Items Found</h2>
-          </div>
-        )
-      }
-      </div>
-    );
-  }
+  
+  return (
+    <div className="App">
+      <h1>List of Items</h1>
+      {/* Check to see if any items are found */}
+      {list.length ? (
+        <div>
+          {/* Render the list of items */}
+          {list.map((item) => {
+            return(
+              <div>
+                {item}
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div>
+          <h2>No List Items Found</h2>
+        </div>
+      )
+    }
+    </div>
+  );
 }
 
 export default List;

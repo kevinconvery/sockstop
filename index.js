@@ -13,8 +13,4 @@ app.get('/api/getList', (req, res) => {
   console.log('Sent list of items');
 })
 
-app.get('/', (req, res) => {
-  res.send('Hello, socks!!');
-});
-
 app.listen(5000, () => console.log("Sock app listening on port 5000!"));
